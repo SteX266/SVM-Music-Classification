@@ -2,6 +2,13 @@ import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.svm import SVC
 
+from sklearn.preprocessing import LabelEncoder
+
+# Create LabelEncoder instance
+label_encoder = LabelEncoder()
+
+# Fit and transform the 'genre' column
+
 # Assuming you have a DataFrame called 'df' with the features and target variable
 # features = {"genre": [], "zero_crossing_rate": [], "spectral_centroid": []}
 
@@ -14,13 +21,15 @@ df = pd.read_csv(csv_file)
 # Split the dataset into training and testing sets
 X = df[['zero_crossing_rate', 'spectral_centroid']]
 y = df['genre']
+y = label_encoder.fit_transform(y)
+
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Define the parameter grid for grid search
 param_grid = {
-    'C': [1, 10, 12],
-    'kernel': ['linear', 'rbf'],
-    'gamma': [0.1, 1, 1.2]
+    'C': [1,5,10],
+    'kernel': ['rbf'],
 }
 
 # Create the SVM classifier
