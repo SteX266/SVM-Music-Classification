@@ -19,7 +19,7 @@ df = pd.read_csv(csv_file)
 # Convert the features dictionary to a DataFrame
 
 # Split the dataset into training and testing sets
-X = df[['zero_crossing_rate', 'spectral_centroid']]
+X = df.drop(['genre'], axis=1)
 y = df['genre']
 y = label_encoder.fit_transform(y)
 
@@ -27,11 +27,15 @@ y = label_encoder.fit_transform(y)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Define the parameter grid for grid search
+# TODO: IGRAJ SE SA PARAMETRIMA MAJMUNE
+# TODO: DODAJ MOZDA I NEKE DRUGE KLASIFIKATORE MOZDA JE TO PAMETNO
+# TODO: DODAJ JOS NEKE FEATURE I MOZDA IZBACI NEKE PROBAJ PAR VARIJANTI, TREBAO BI MOZDA PROVERITI STA KOJI FEATURE PREDSTAVLJA
+# TODO: STA RADI SERFEZE, TESTIRA KOD
 param_grid = {
-    'C': [1,5,10],
     'kernel': ['rbf'],
+    'C': [1, 1, 10],
+    'gamma': [0.00001, 0.4, 3]
 }
-
 # Create the SVM classifier
 svm = SVC()
 
