@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.metrics import precision_score, f1_score
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.svm import SVC
 
@@ -53,4 +54,8 @@ top_2_accuracy = correct_predictions / len(y_test)
 print("Top 2 Accuracy:", top_2_accuracy)
 
 accuracy = svm_best.score(X_test, y_test)
+precision = precision_score(y_test, svm_best.predict(X_test), average='weighted')
+f1 = f1_score(y_test, svm_best.predict(X_test), average='weighted')
 print("Accuracy:", accuracy)
+print("Precision:", precision)
+print("F1 Score:", f1)
